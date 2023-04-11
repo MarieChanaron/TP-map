@@ -51,7 +51,7 @@ public class Main {
 
 
         /*
-        f) Mettre à jour votre HashMap pour utiliser une classe User, rattachée au numéro. La classe
+        f) Mettre à jour votre HashMap pour utiliser une classe Contact, rattachée au numéro. La classe
         User devra comporter un prénom et une région de type Enum.
         Chaque Contact devra avoir une région différente car chaque numéro devra s’afficher avec
         un indicatif en fonction des régions.
