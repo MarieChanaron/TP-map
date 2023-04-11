@@ -1,26 +1,4 @@
-import org.w3c.dom.ls.LSOutput;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Main {
-
-    public static String addDots(String numero) {
-        char[] numArray = new char[numero.length() + numero.length() / 2 - 1];
-        int j = 0;
-        int pos = 0;
-        for (int i = 0; i < numArray.length; i++) {
-            if (i == (3 * pos + 2)) {
-                numArray[i] = '.';
-                pos ++;
-            } else {
-                numArray[i] = numero.charAt(j ++);
-            }
-        }
-        return String.valueOf(numArray);
-    }
-
 
     public static void main(String[] args) {
 
@@ -32,32 +10,34 @@ public class Main {
             • Estelle : 0700000700
         * */
 
-        Map<String, String> contacts = new HashMap<>()
-        {{
-            put("Boris", "0680000000");
-            put("Arthur", "0607070606");
-            put("Thibault", "0605000005");
-            put("Estelle", "0700000700");
-        }};
+        new Contact("Boris", "France", "0680000000");
+        new Contact("Arthur", "Suisse", "0607070606");
+        new Contact("Thibault", "Polynésie", "0605000005");
+        new Contact("Estelle", "Martinique", "0700000700");
 
 
         /* b) Récupérez et affichez le numéro d’Arthur */
 
-        String numArthur = contacts.get("Arthur");
+        String[] coordonneesArthur = Contact.contacts.get("Arthur");
+        String numArthur = coordonneesArthur[1];
 
-        System.out.println(numArthur);
+        System.out.println("Téléphone d'Arthur : " + numArthur);
 
 
         /* c) Affichez tout le carnet de contacts comme dans l’exemple ci-dessous */
 
-        System.out.println(contacts);
+        System.out.println(); // Saut de ligne
+        Contact.afficherContacts();
 
 
         /* d) Boris a changé de numéro, veuillez mettre à jour le carnet de contacts : 0799999907 */
 
-        contacts.replace("Boris", "0799999907");
+        String[] borisInfos = Contact.contacts.get("Boris");
+        borisInfos[1] = "0799999907";
+        Contact.contacts.replace("Boris", borisInfos);
 
-        System.out.println(contacts);
+        System.out.println("\nCarnet à jour :");
+        Contact.afficherContacts();
 
 
         /*
@@ -66,21 +46,14 @@ public class Main {
         Exemple : 0799999907 devient 07.99.99.99.07
         */
 
-        contacts.forEach(
-                (nom, numero) -> System.out.println("Nom : " + nom + " => Téléphone : " + addDots(numero))
-        );
-
-        /*
-        for (Map.Entry<String, String> entry : contacts.entrySet()) {
-            System.out.println("Nom : " + entry.getKey() + " => Téléphone : " + addDots(entry.getValue()));
-        }
-        */
+        System.out.println(); // Saut de ligne
+        Contact.afficherContactsAvecPoints();
 
 
         /*
         f) Mettre à jour votre HashMap pour utiliser une classe User, rattachée au numéro. La classe
         User devra comporter un prénom et une région de type Enum.
-        Chaque Contact devra avoir d’une région différente car chaque numéro devra s’afficher avec
+        Chaque Contact devra avoir une région différente car chaque numéro devra s’afficher avec
         un indicatif en fonction des régions.
 
         Exemple des indicatifs :
@@ -92,7 +65,13 @@ public class Main {
         Affichez cette nouvelle HashMap.
         */
 
+        new Region("+33", "France");
+        new Region("+41", "Suisse");
+        new Region("+689", "Polynésie");
+        new Region("+596", "Martinique");
+        new Region("+62", "Indonésie");
 
-
+        System.out.println(); // Saut de ligne
+        Contact.afficherContactsFormate();
     }
 }
